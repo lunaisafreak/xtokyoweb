@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xTokyo.lol</title>
+
+  <script disable-devtool-auto src="js/disable-devtool.min.js"></script>
+  <link href="https://fonts.cdnfonts.com/css/vcr-osd-mono" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #enterScreen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'VCR OSD Mono', sans-serif;
+      font-size: 24px;
+      z-index: 9999;
+      cursor: pointer;
+      transition: opacity 0.5s ease;
+    }
+
+    .hidden-player {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .player-controls {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .player-controls button {
+      font-size: 24px;
+      padding: 15px;
+      background-color: #000000;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .player-controls button:hover {
+      background-color: #222;
+    }
+  </style>
+</head>
+
+<body class="center-screen wallpaper">
+
+  <div id="enterScreen">Click to Enter</div>
+
+  <pre>
+      _____     _                
+__  _|_   _|__ | | ___   _  ___  
+\ \/ / | |/ _ \| |/ / | | |/ _ \ 
+ >  <  | | (_) |   <| |_| | (_) |
+/_/\_\ |_|\___/|_|\_\\__, |\___/ 
+                     |___/       
+  </pre>
+
+  <div class="intial-container">
+    <div class="box-contain">
+      <div class="box-brrr">
+        <img style="margin-left: 10px;" src="images/pfp.gif" class="pfp" alt="xTokyo PFP">
+        <h3>xTokyo</h3>
+        <p>Fuck com!</p>
+        <p style="font-size:10px;">--Socials--</p>
+        <a href="https://cash.app/$Mynameis0123" target="_blank" rel="noopener noreferrer"><img src="images/cashapp.png" height="30px" alt="Cashapp"></a>
+        <a href="https://www.roblox.com/users/1800102296/profile" target="_blank" rel="noopener noreferrer"><img src="images/roblox.png" height="30px" alt="Roblox"></a>
+        <a href="https://discord.com/users/1154973929979523214" target="_blank" rel="noopener noreferrer"><img src="images/discord.png" height="30px" alt="Discord"></a>
+      </div>
+    </div>
+
+    <iframe 
+      id="soundcloud-player"
+      class="hidden-player"
+      scrolling="no"
+      frameborder="no"
+      allow="autoplay"
+      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1541606514&color=%23ff5500&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
+    </iframe>
+
+    <div class="player-controls">
+      <button id="playPauseBtn"><i id="playPauseIcon" class="fas fa-pause"></i></button>
+    </div>
+  </div>
+
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+  <script>
+    const enterScreen = document.getElementById('enterScreen');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playPauseIcon = document.getElementById('playPauseIcon');
+    const soundCloudIframe = document.getElementById('soundcloud-player');
+
+    const widget = SC.Widget(soundCloudIframe);
+
+    let isWidgetReady = false;
+    let isPlaying = false;
+    let queuedPlay = false;
+
+    widget.bind(SC.Widget.Events.READY, () => {
+      isWidgetReady = true;
+      if (queuedPlay) {
+        widget.play();
+        isPlaying = true;
+        playPauseIcon.classList.replace('fa-play', 'fa-pause');
+        queuedPlay = false;
+      }
+    });
+
+    function startMusicAndEnter() {
+      if (isWidgetReady) {
+        widget.play();
+        isPlaying = true;
+        playPauseIcon.classList.replace('fa-play', 'fa-pause');
+      } else {
+        queuedPlay = true;
+      }
+      enterScreen.style.opacity = '0';
+      setTimeout(() => {
+        enterScreen.style.display = 'none';
+      }, 500);
+    }
+
+    function togglePlayPause() {
+      if (!isWidgetReady) return;
+      if (isPlaying) {
+        widget.pause();
+        playPauseIcon.classList.replace('fa-pause', 'fa-play');
+      } else {
+        widget.play();
+        playPauseIcon.classList.replace('fa-play', 'fa-pause');
+      }
+      isPlaying = !isPlaying;
+    }
+
+    widget.bind(SC.Widget.Events.PLAY, () => {
+      isPlaying = true;
+      playPauseIcon.classList.replace('fa-play', 'fa-pause');
+    });
+    widget.bind(SC.Widget.Events.PAUSE, () => {
+      isPlaying = false;
+      playPauseIcon.classList.replace('fa-pause', 'fa-play');
+    });
+
+    enterScreen.addEventListener('click', startMusicAndEnter);
+    playPauseBtn.addEventListener('click', togglePlayPause);
+  </script>
+
+</body>
+</html>
