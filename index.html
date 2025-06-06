@@ -89,6 +89,7 @@ __  _|_   _|__ | | ___   _  ___
       </div>
     </div>
 
+    <!-- ADD &enable_api=true just before the closing quotation mark -->
     <iframe 
       id="soundcloud-player"
       class="hidden-player"
@@ -99,7 +100,8 @@ __  _|_   _|__ | | ___   _  ___
     </iframe>
 
     <div class="player-controls">
-      <button id="playPauseBtn"><i id="playPauseIcon" class="fas fa-pause"></i></button>
+      <!-- CHANGE the initial icon to "fa-play" instead of "fa-pause" -->
+      <button id="playPauseBtn"><i id="playPauseIcon" class="fas fa-play"></i></button>
     </div>
   </div>
 
@@ -110,6 +112,7 @@ __  _|_   _|__ | | ___   _  ___
     const playPauseIcon = document.getElementById('playPauseIcon');
     const soundCloudIframe = document.getElementById('soundcloud-player');
 
+    // Now that api.js is loaded, we can safely initialize the widget:
     const widget = SC.Widget(soundCloudIframe);
 
     let isWidgetReady = false;
