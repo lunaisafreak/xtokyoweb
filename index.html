@@ -83,13 +83,19 @@ __  _|_   _|__ | | ___   _  ___
         <h3>xTokyo</h3>
         <p>Fuck com!</p>
         <p style="font-size:10px;">--Socials--</p>
-        <a href="https://cash.app/$Mynameis0123" target="_blank" rel="noopener noreferrer"><img src="images/cashapp.png" height="30px" alt="Cashapp"></a>
-        <a href="https://www.roblox.com/users/1800102296/profile" target="_blank" rel="noopener noreferrer"><img src="images/roblox.png" height="30px" alt="Roblox"></a>
-        <a href="https://discord.com/users/1154973929979523214" target="_blank" rel="noopener noreferrer"><img src="images/discord.png" height="30px" alt="Discord"></a>
+        <a href="https://cash.app/$Mynameis0123" target="_blank" rel="noopener noreferrer">
+          <img src="images/cashapp.png" height="30px" alt="Cashapp">
+        </a>
+        <a href="https://www.roblox.com/users/1800102296/profile" target="_blank" rel="noopener noreferrer">
+          <img src="images/roblox.png" height="30px" alt="Roblox">
+        </a>
+        <a href="https://discord.com/users/1154973929979523214" target="_blank" rel="noopener noreferrer">
+          <img src="images/discord.png" height="30px" alt="Discord">
+        </a>
       </div>
     </div>
 
-    <!-- ADD &enable_api=true just before the closing quotation mark -->
+    <!-- ADDED &enable_api=true at the end of the iframe URL -->
     <iframe 
       id="soundcloud-player"
       class="hidden-player"
@@ -100,7 +106,7 @@ __  _|_   _|__ | | ___   _  ___
     </iframe>
 
     <div class="player-controls">
-      <!-- CHANGE the initial icon to "fa-play" instead of "fa-pause" -->
+      <!-- KEPT only one button, starting with a “play” icon -->
       <button id="playPauseBtn"><i id="playPauseIcon" class="fas fa-play"></i></button>
     </div>
   </div>
@@ -112,7 +118,7 @@ __  _|_   _|__ | | ___   _  ___
     const playPauseIcon = document.getElementById('playPauseIcon');
     const soundCloudIframe = document.getElementById('soundcloud-player');
 
-    // Now that api.js is loaded, we can safely initialize the widget:
+    // SC.Widget will now be able to control the iframe thanks to enable_api=true
     const widget = SC.Widget(soundCloudIframe);
 
     let isWidgetReady = false;
